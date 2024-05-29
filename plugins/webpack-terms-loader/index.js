@@ -23,12 +23,12 @@ module.exports = function(source) {
 
   if (termMatch) {
     const data = parseMD(source);
-    const resourcePath = termMatch[1].replace(/\d+-/, '');
+
     data.metadata.hoverText = data.metadata.hoverText ? remark()
       .use(remarkHTML, { sanitize: true })
       .processSync(data.metadata.hoverText).contents : '';
-    store.addTerm(resourcePath, data);
-    this.emitFile(resourcePath + '.json', JSON.stringify(data))
+    store.addTerm(termMatch[1], data);
+    this.emitFile(termMatch[1] + '.json', JSON.stringify(data))
   }
 
   return source;
